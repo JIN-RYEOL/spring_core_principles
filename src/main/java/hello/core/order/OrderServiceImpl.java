@@ -1,15 +1,18 @@
 package hello.core.order;
 
 import hello.core.discount.DiscountPolicy;
-import hello.core.discount.FixDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
-import hello.core.member.MemmoryMemberRepository;
 
-public class OrderServiceImple implements OrderService{
+public class OrderServiceImpl implements OrderService{
 
-    private final MemberRepository memberRepository = new MemmoryMemberRepository();
-    private DiscountPolicy discountPolicy;
+    private final MemberRepository memberRepository;
+    private final DiscountPolicy discountPolicy;
+
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
 
     // 새로운 할인 정책 적용과 문제점!!
     // 현재 문제점
@@ -23,7 +26,6 @@ public class OrderServiceImple implements OrderService{
     //          추상(인터페이스) 뿐만 아니라 "구체(구현)클래스에도 의존"하고 있다.
     //          ex)
     //             private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
-
 
     // private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
     // private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
